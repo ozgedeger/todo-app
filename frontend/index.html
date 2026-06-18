@@ -1,11 +1,40 @@
-<html>
+<html sytyle="background-color: #ffcce6;">
 <head>
 </head>
-<body>
-    <h1>To-Do Application</h1>
-    <input type="text" id="todo-input" placeholder="What To Do Next">
-    <button onClick="addTodo()">Add</button>
-    <ul id="todo-list"></ul>
+<body style="
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: sans-serif;">
+    <div style="
+        width: 320px;
+        height: 380px;
+        background-color: #e81783;
+        padding: 25px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(232, 23, 131, 0.6), 0 4px 15px rgba(0,0,0,0.2);">
+            <h1 style="
+                margin-top: 0;
+                font-size: 24px;
+                text-align: center;
+                color: white;
+                letter-spacing: 1px;">
+                To-Do Application
+            </h1>
+            <div style="
+                display: flex;
+                gap: 8px;
+                margin-bottom: 15px;">
+                <input type="text" id="todo-input" placeholder="What To Do Next" style="flex: 1; padding: 10px; border-radius: 6px; border: none; outline: none;">
+                <button onClick="addTodo()" style="padding: 10px 14px; border-radius: 6px; border: none; cursor: pointer; background: white; font-weight: bold; color: #e81783;">Add</button>
+            </div>
+            <ul id="todo-list" style="flex: 1; overflow-y: auto; margin: 0; padding: 0; list-style: none;"></ul>
+        </div>
 
     <script>
         async function fetchTodos() {
@@ -14,7 +43,11 @@
             const list = document.getElementById('todo-list');
             list.innerHTML = '';
             data.forEach(todo => {
-                list.innerHTML += `<li>${todo.text} <button onclick="deleteTodo(${todo.id})">Delete</button></li>`;
+                list.innerHTML += `
+                    <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; background: rgba(255, 255, 255, 0.15); padding: 8px 12px; border-radius: 6px; color: white;">
+                        <span style="font-size: 15px; font-weight: 500;">${todo.text}</span>
+                        <button onclick="deleteTodo(${todo.id})" style="padding: 6px 10px; border-radius: 5px; border: none; cursor: pointer; background: white; font-weight: bold; color: #e81783; font-size: 13px;">Delete</button>
+                    </li>`;
             });
         }
         async function addTodo() {
