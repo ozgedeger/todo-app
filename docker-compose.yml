@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ozgedeger
+      POSTGRES_PASSWORD: staj41
+      POSTGRES_DB: todo_db
+    ports:
+      - 5432:5432
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      DB_HOST: db
+      DB_USER: ozgedeger
+      DB_PASSWORD: staj41
+      DB_NAME: todo_db
+    depends_on:
+      - db
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - 9090:80
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/share/nginx/html
